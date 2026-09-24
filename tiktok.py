@@ -23,10 +23,9 @@ def spin_text(text: str) -> str:
 
 async def main():
     async with async_playwright() as p:
-        # Opens your real local Chromium profile
         context = await p.chromium.launch_persistent_context(
             user_data_dir=USER_DATA_DIR,
-            headless=False,  # Keep visible so you can see it run and solve any CAPTCHA if needed
+            headless=False,
             args=["--disable-blink-features=AutomationControlled"],
         )
 
@@ -40,7 +39,6 @@ async def main():
         print("[*] Waiting for inbox interface to load...")
         await asyncio.sleep(6)
 
-        # Check if login is needed (first-time only)
         if "login" in page.url:
             print(
                 "\n[!] ACTION REQUIRED: Please log into TikTok manually in the browser window."
